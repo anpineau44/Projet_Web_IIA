@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\API_dotnet_web_IIA.props" />
+</Project>

@@ -1,0 +1,25 @@
+.home-container {
+    width: 1250px;
+    height: 550px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(148, 145, 143);
+}
+
+h2 {
+    color: white;
+    padding-top: 10%;
+    padding-left: 70%;
+    font-size: 40px;
+}
+
+.image-container {
+    width: 500px;
+    padding-left: 20px;
+    padding-top: 10px;
+}
