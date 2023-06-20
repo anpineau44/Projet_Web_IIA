@@ -73,7 +73,7 @@ namespace API_dotnet_web_IIA.Controllers
             }
 
             // Mettez à jour le mot de passe de l'utilisateur avec le nouveau mot de passe
-            user.Password = _jwtAuthenticationService.EncryptPWD(model.OldPassword);
+            user.Password = _jwtAuthenticationService.EncryptPWD(model.NewPassword);
             _context.SaveChanges();
 
             return NoContent();

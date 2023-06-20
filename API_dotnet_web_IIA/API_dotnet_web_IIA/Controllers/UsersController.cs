@@ -10,9 +10,11 @@ namespace API_dotnet_web_IIA.Controllers
     public class UsersController : Controller
     {
         private readonly WebApiContext _context;
+        private readonly IJwtAuthentificationService _jwtAuthenticationService;
 
-        public UsersController(WebApiContext context)
+        public UsersController(IJwtAuthentificationService JwtAuthenticationService, WebApiContext context)
         {
+            _jwtAuthenticationService = JwtAuthenticationService;
             _context = context;
         }
 
@@ -36,10 +38,10 @@ namespace API_dotnet_web_IIA.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<UserModel>> CreateUser(UserModel user)
         {
             // valider les données
+            user.Password = _jwtAuthenticationService.EncryptPWD(user.Password);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
