@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\malod\\source\\repos\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj": {}
+    "D:\\Cours\\L3 - IIA\\NFE114\\Project_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\malod\\source\\repos\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj": {
+    "D:\\Cours\\L3 - IIA\\NFE114\\Project_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\malod\\source\\repos\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj",
+        "projectUniqueName": "D:\\Cours\\L3 - IIA\\NFE114\\Project_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj",
         "projectName": "API_dotnet_web_IIA",
-        "projectPath": "C:\\Users\\malod\\source\\repos\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj",
-        "packagesPath": "C:\\Users\\malod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\malod\\source\\repos\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\obj\\",
+        "projectPath": "D:\\Cours\\L3 - IIA\\NFE114\\Project_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA.csproj",
+        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+        "outputPath": "D:\\Cours\\L3 - IIA\\NFE114\\Project_IIA\\API_dotnet_web_IIA\\API_dotnet_web_IIA\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\malod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
