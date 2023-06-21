@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ExtractComponent } from './extract/extract.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NotifierModule } from 'angular-notifier';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NotifierModule } from 'angular-notifier';
     HomeComponent,
     NavbarComponent,
     ExtractComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

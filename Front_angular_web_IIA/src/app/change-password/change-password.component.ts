@@ -30,7 +30,7 @@ export class ChangePasswordComponent {
         this.oldPassword = '';
         this.newPassword = '';
       }, (error) => {
-        this.notifierService.notify('warning', 'Erreur lors de la modification du mot de passe.');
+        this.notifierService.notify('error', 'Erreur lors de la modification du mot de passe.');
       });
   }
 }

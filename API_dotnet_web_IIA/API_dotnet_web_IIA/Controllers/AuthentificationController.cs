@@ -95,7 +95,7 @@ namespace API_dotnet_web_IIA.Controllers
             // Envoyer l'e-mail contenant le lien de réinitialisation de mot de passe
             SendPasswordResetEmailAsync(email, resetToken);
 
-            return Ok();
+            return NoContent();
         }
 
         private async Task SendPasswordResetEmailAsync(string email, string resetToken)
