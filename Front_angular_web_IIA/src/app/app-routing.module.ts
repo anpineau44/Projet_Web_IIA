@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ExtractComponent } from './extract/extract.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotPasswordTokenComponent } from './forgot-password-token/forgot-password-token.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'extract', component: ExtractComponent },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'forgot-password-token/:token', component: ForgotPasswordTokenComponent },
   { path: '**', redirectTo: 'login' }
 ];
 

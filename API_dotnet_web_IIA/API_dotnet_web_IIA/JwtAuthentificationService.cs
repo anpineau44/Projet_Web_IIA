@@ -90,7 +90,19 @@ namespace API_dotnet_web_IIA
             {
                 rng.GetBytes(randomBytes);
             }
-            return Convert.ToBase64String(randomBytes);
+
+            // Encode les octets en Base64Url
+            string token = Base64UrlEncode(randomBytes);
+
+            return token;
         }
+
+        private string Base64UrlEncode(byte[] bytes)
+        {
+            string base64 = Convert.ToBase64String(bytes);
+            string base64Url = base64.Replace('+', '-').Replace('/', '_').TrimEnd('=');
+            return base64Url;
+        }
+
     }
 }
