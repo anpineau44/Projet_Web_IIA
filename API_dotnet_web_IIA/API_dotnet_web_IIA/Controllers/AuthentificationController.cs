@@ -61,7 +61,7 @@ namespace API_dotnet_web_IIA.Controllers
             // Vérifiez l'identité de l'utilisateur actuel
             var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            if (user == null)
+            if (user == null || model.NewPassword == "")
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace API_dotnet_web_IIA.Controllers
             var subject = "Sending with SendGrid";
             var to = new EmailAddress(email, email);
             var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = $"Click the following link to reset your password: {resetToken}";
+            var htmlContent = $"Click sur le lien pour reinitialiser ton mot de passe: {"http://localhost:4200/forgot-password-token/"+resetToken}";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
             // Vérifiez si l'e-mail a été envoyé avec succès
@@ -129,7 +129,7 @@ namespace API_dotnet_web_IIA.Controllers
 
             // Trouver l'utilisateur associé au jeton de réinitialisation de mot de passe
             var user = _context.Users.FirstOrDefault(u => u.ResetPasswordToken == token);
-            if (user == null)
+            if (user == null || newPassword == "")
             {
                 return BadRequest("Invalid or expired reset token");
             }
@@ -141,7 +141,20 @@ namespace API_dotnet_web_IIA.Controllers
 
             _context.SaveChanges();
 
-            return Ok("Password reset successfully");
+            return NoContent();
+        }
+
+        [HttpGet("password-reset-email-valide-token")]
+        public IActionResult ValideTokenResetPassword(string token)
+        {
+            // Valider le jeton de réinitialisation de mot de passe
+            bool isTokenValid = _jwtAuthenticationService.ValidatePasswordResetToken(token);
+            if (!isTokenValid)
+            {
+                return BadRequest("Invalid or expired reset token");
+            }
+
+            return NoContent();
         }
 
         [HttpGet("extractCa")]

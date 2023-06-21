@@ -14,6 +14,7 @@ import { ExtractComponent } from './extract/extract.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { NotifierModule } from 'angular-notifier';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotPasswordTokenComponent } from './forgot-password-token/forgot-password-token.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     NavbarComponent,
     ExtractComponent,
     ChangePasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ForgotPasswordTokenComponent
   ],
   imports: [
     BrowserModule,
