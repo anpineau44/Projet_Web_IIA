@@ -10,10 +10,6 @@ namespace API_dotnet_web_IIA.Models
 
         public DbSet<UserModel> Users { get; set; }
         public DbSet<ExtractCaModel> extract_ca { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ExtractCaModel>().HasNoKey();
-        }
     }
 }
 //Add-Migration nomdelamigration

@@ -144,7 +144,7 @@ namespace API_dotnet_web_IIA.Controllers
             return NoContent();
         }
 
-        [HttpGet("password-reset-email-valide-token")]
+        [HttpGet("password-reset-valide-token")]
         public IActionResult ValideTokenResetPassword(string token)
         {
             // Valider le jeton de réinitialisation de mot de passe
