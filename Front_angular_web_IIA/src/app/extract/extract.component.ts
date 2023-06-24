@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TokenService } from '../token.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-extract',
@@ -9,17 +10,48 @@ import { TokenService } from '../token.service';
 })
 export class ExtractComponent {
   data: any[] = [];
+  DateDebut!: string;
+  DateFin!: string;
+  Region!: string;
+  Vendeur!: string;
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService, private notifierService: NotifierService) { }
 
   ngOnInit(): void {
+
+  }
+
+  appliquerFiltres() {
     const token = this.tokenService.getToken();
-    this.http.get<any[]>('https://localhost:7085/api/Authentification/extractCa', { headers: { Authorization: `Bearer ${token}` } }).subscribe(
+
+    // Construire la partie fixe de l'URL
+    let url = 'https://localhost:7085/api/Authentification/extractCa?';
+
+    // Vérifier chaque filtre et ajouter à l'URL seulement s'ils ont une valeur
+    if (this.DateDebut) {
+      url += `startDate=${encodeURIComponent(this.DateDebut)}&`;
+    }
+    if (this.DateFin) {
+      url += `endDate=${encodeURIComponent(this.DateFin)}&`;
+    }
+    if (this.Region) {
+      url += `region=${encodeURIComponent(this.Region)}&`;
+    }
+    if (this.Vendeur) {
+      url += `vendeur=${encodeURIComponent(this.Vendeur)}&`;
+    }
+
+    // Supprimer le dernier caractère '&' s'il existe
+    if (url.endsWith('&')) {
+      url = url.slice(0, -1);
+    }
+
+    this.http.get<any[]>(url, { headers: { Authorization: `Bearer ${token}` } }).subscribe(
       (response) => {
         this.data = response;
       },
       (error) => {
-        console.log('Erreur lors de la récupération des données:', error);
+        this.notifierService.notify('error', 'Erreur lors de la récupération des données, champs invalide');
       }
     );
   }

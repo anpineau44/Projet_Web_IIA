@@ -9,6 +9,7 @@ using System.Security.Claims;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace API_dotnet_web_IIA.Controllers
 {
@@ -106,7 +107,7 @@ namespace API_dotnet_web_IIA.Controllers
             var subject = "Sending with SendGrid";
             var to = new EmailAddress(email, email);
             var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = $"Click sur le lien pour reinitialiser ton mot de passe: {"http://localhost:4200/forgot-password-token/"+resetToken}";
+            var htmlContent = $"Click sur le lien pour reinitialiser ton mot de passe: {"http://localhost:4200/forgot-password-token/" + resetToken}";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
             // Vérifiez si l'e-mail a été envoyé avec succès
@@ -159,12 +160,62 @@ namespace API_dotnet_web_IIA.Controllers
 
         [HttpGet("extractCa")]
         [Authorize]
-        public IActionResult GetExtractCa()
+        public IActionResult GetExtractCa(DateTime? startDate, DateTime? endDate, string? region, int? vendeur)
         {
-            // Récupérer toutes les entrées de la table "extract_ca"
-            var extractCaList = _context.extract_ca.ToList();
+            // Récupérer les entrées de la table "extract_ca" en fonction des filtres
+            var query = _context.extract_ca.AsQueryable();
 
-            return Ok(extractCaList);
+            // Filtrer par date de début
+            if (startDate.HasValue)
+            {
+                query = query.Where(e => e.Date >= startDate.Value);
+            }
+
+            // Filtrer par date de fin
+            if (endDate.HasValue)
+            {
+                query = query.Where(e => e.Date <= endDate.Value);
+            }
+
+            // Filtrer par région
+            if (!string.IsNullOrEmpty(region))
+            {
+                query = query.Where(e => e.Region == region);
+            }
+
+            // Filtrer par vendeur
+            if (vendeur.HasValue)
+            {
+                query = query.Where(e => e.Vendeur == vendeur.Value);
+            }
+
+            // Récupérer les données de la base de données
+            var extractCaList = query.ToList();
+
+            // Calculer la somme des montants en convertissant les valeurs
+            var sumByDateAndRegion = extractCaList
+            .GroupBy(e => new { e.Date, e.Region })
+            .Select(g => new
+            {
+                Date = g.Key.Date,
+                Region = g.Key.Region,
+                Vendeur = g.Select(e => e.Vendeur).FirstOrDefault(),
+                Montanttotal = Math.Round(g.Sum(e => ParseDecimal(e.Montant))).ToString()
+            })
+            .ToList();
+
+            return Ok(sumByDateAndRegion);
+        }
+
+        // Méthode pour convertir la chaîne en décimal en prenant en compte différents formats
+        private decimal ParseDecimal(string value)
+        {
+            decimal result;
+            if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out result))
+            {
+                return result;
+            }
+            return 0;
         }
     }
 }
