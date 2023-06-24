@@ -6,11 +6,18 @@
     <label>Date fin:</label>
     <input type="text" [(ngModel)]="DateFin">
 
-    <label>Region:</label>
-    <input type="text" [(ngModel)]="Region">
+    <label>Région:</label>
+    <select [(ngModel)]="Region">
+        <option [value]=""></option>
+        <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+    </select>
 
     <label>Vendeur:</label>
     <input type="text" [(ngModel)]="Vendeur">
+
+    <label>
+        <input type="checkbox" [(ngModel)]="CheckboxValue"> Somme Montant
+    </label>
 
     <button class="decaler-droite" (click)="appliquerFiltres()">Appliquer</button>
 </div>
@@ -30,7 +37,7 @@
                 <td>{{ item.date | date }}</td>
                 <td>{{ item.region }}</td>
                 <td>{{ item.vendeur }}</td>
-                <td>{{ item.montanttotal }}</td>
+                <td>{{ item.montant }}</td>
             </tr>
         </tbody>
     </table>

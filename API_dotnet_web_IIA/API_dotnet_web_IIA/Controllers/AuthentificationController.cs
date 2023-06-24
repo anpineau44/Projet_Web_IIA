@@ -160,7 +160,7 @@ namespace API_dotnet_web_IIA.Controllers
 
         [HttpGet("extractCa")]
         [Authorize]
-        public IActionResult GetExtractCa(DateTime? startDate, DateTime? endDate, string? region, int? vendeur)
+        public IActionResult GetExtractCa(DateTime? startDate, DateTime? endDate, string? region, int? vendeur, Boolean SommeMontant)
         {
             // Récupérer les entrées de la table "extract_ca" en fonction des filtres
             var query = _context.extract_ca.AsQueryable();
@@ -192,19 +192,23 @@ namespace API_dotnet_web_IIA.Controllers
             // Récupérer les données de la base de données
             var extractCaList = query.ToList();
 
-            // Calculer la somme des montants en convertissant les valeurs
-            var sumByDateAndRegion = extractCaList
-            .GroupBy(e => new { e.Date, e.Region })
-            .Select(g => new
+            if(SommeMontant==true)
             {
-                Date = g.Key.Date,
-                Region = g.Key.Region,
-                Vendeur = g.Select(e => e.Vendeur).FirstOrDefault(),
-                Montanttotal = Math.Round(g.Sum(e => ParseDecimal(e.Montant))).ToString()
-            })
-            .ToList();
+                // Calculer la somme des montants en convertissant les valeurs
+                var sumByDateAndRegion = extractCaList
+                .GroupBy(e => new { e.Date, e.Region })
+                .Select(g => new
+                {
+                    Date = g.Key.Date,
+                    Region = g.Key.Region,
+                    Vendeur = g.Select(e => e.Vendeur).FirstOrDefault(),
+                    Montant = Math.Round(g.Sum(e => ParseDecimal(e.Montant))).ToString()
+                })
+                .ToList();
 
-            return Ok(sumByDateAndRegion);
+                return Ok(sumByDateAndRegion);
+            }
+            return Ok(extractCaList);
         }
 
         // Méthode pour convertir la chaîne en décimal en prenant en compte différents formats
@@ -217,5 +221,18 @@ namespace API_dotnet_web_IIA.Controllers
             }
             return 0;
         }
+
+        [HttpGet("regions")]
+        [Authorize]
+        public IActionResult GetRegions()
+        {
+            // Récupérer les régions distinctes de la table "extract_ca"
+            var regions = _context.extract_ca.Select(e => e.Region).Distinct().ToList();
+
+            var data = new { Regions = regions };
+
+            return Ok(data);
+        }
+
     }
 }
