@@ -12,14 +12,28 @@ export class ExtractComponent {
   data: any[] = [];
   DateDebut!: string;
   DateFin!: string;
-  Region!: string;
   Vendeur!: string;
+  Region!: string;
+  regions: string[] = [];
+  CheckboxValue: boolean = false;
 
   constructor(private http: HttpClient, private tokenService: TokenService, private notifierService: NotifierService) { }
 
   ngOnInit(): void {
-
+    this.fetchRegions();
   }
+
+  fetchRegions() {
+    const token = this.tokenService.getToken();
+    this.http.get<any>('https://localhost:7085/api/Authentification/regions', { headers: { Authorization: `Bearer ${token}` } }).subscribe(
+      (response) => {
+        this.regions = response.regions;
+      },
+      (error) => {
+        this.notifierService.notify('error', 'Erreur lors de la récupération des régions.');
+      }
+    );
+  }  
 
   appliquerFiltres() {
     const token = this.tokenService.getToken();
@@ -40,6 +54,9 @@ export class ExtractComponent {
     if (this.Vendeur) {
       url += `vendeur=${encodeURIComponent(this.Vendeur)}&`;
     }
+
+    // Ajouter la valeur de la checkbox à l'URL
+    url += `SommeMontant=${encodeURIComponent(this.CheckboxValue.toString())}&`;
 
     // Supprimer le dernier caractère '&' s'il existe
     if (url.endsWith('&')) {
