@@ -1,6 +1,24 @@
 .table-container {
-    width: 80%;
-    /* Définissez la largeur souhaitée */
-    margin: 0 auto;
-    /* Centrez horizontalement le conteneur */
+    max-height: 500px;
+    max-width: 70%;
+    margin-left: 15%;
+    margin-top: 3%;
+    overflow-y: auto;
+}
+
+.filtres {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 7%;
+    margin-top: 3%;
+}
+
+.filtres label {
+    margin-right: 6px;
+    margin-left: 2%;
+}
+
+.decaler-droite {
+    margin-left: 50px;
 }

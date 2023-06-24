@@ -1,21 +1,37 @@
 <app-navbar></app-navbar>
-<table class="table table-container table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Région</th>
-            <th scope="col">Vendeur</th>
-            <th scope="col">Montant</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of data">
-            <td>{{ item.id }}</td>
-            <td>{{ item.date | date }}</td>
-            <td>{{ item.region }}</td>
-            <td>{{ item.vendeur }}</td>
-            <td>{{ item.montant }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="filtres">
+    <label>Date début:</label>
+    <input type="text" [(ngModel)]="DateDebut">
+
+    <label>Date fin:</label>
+    <input type="text" [(ngModel)]="DateFin">
+
+    <label>Region:</label>
+    <input type="text" [(ngModel)]="Region">
+
+    <label>Vendeur:</label>
+    <input type="text" [(ngModel)]="Vendeur">
+
+    <button class="decaler-droite" (click)="appliquerFiltres()">Appliquer</button>
+</div>
+
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Région</th>
+                <th scope="col">Vendeur</th>
+                <th scope="col">Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td>{{ item.date | date }}</td>
+                <td>{{ item.region }}</td>
+                <td>{{ item.vendeur }}</td>
+                <td>{{ item.montanttotal }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
