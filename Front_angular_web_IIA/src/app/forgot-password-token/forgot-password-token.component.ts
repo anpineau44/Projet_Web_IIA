@@ -17,7 +17,7 @@ export class ForgotPasswordTokenComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const token = params.get('token');
-      const url = `https://localhost:7085/api/Authentification/password-reset-email-valide-token?token=${token}`;
+      const url = `https://localhost:7085/api/Authentification/password-reset-valide-token?token=${token}`;
       this.http.get(url).subscribe(
         (response: any) => {
           console.log("token Ok")

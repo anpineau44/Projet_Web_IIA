@@ -22,9 +22,10 @@ export class ExtractComponent {
   ngOnInit(): void {
     this.fetchRegions();
     this.CheckboxValue=true;
+    this.appliquerFiltres();
   }
 
-  fetchRegions() {
+  fetchRegions(): void {
     const token = this.tokenService.getToken();
     this.http.get<any>('https://localhost:7085/api/Authentification/regions', { headers: { Authorization: `Bearer ${token}` } }).subscribe(
       (response) => {
@@ -36,7 +37,7 @@ export class ExtractComponent {
     );
   }  
 
-  appliquerFiltres() {
+  appliquerFiltres(): void {
     const token = this.tokenService.getToken();
 
     // Construire la partie fixe de l'URL
