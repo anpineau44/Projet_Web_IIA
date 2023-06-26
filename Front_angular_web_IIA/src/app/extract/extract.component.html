@@ -26,7 +26,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Date</th>
+                <th scope="col" *ngIf="!CheckboxValue">Date</th>
                 <th scope="col">Région</th>
                 <th scope="col">Vendeur</th>
                 <th scope="col">Montant</th>
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of data">
-                <td>{{ item.date | date }}</td>
+                <td *ngIf="!CheckboxValue">{{ item.date | date }}</td>
                 <td>{{ item.region }}</td>
                 <td>{{ item.vendeur }}</td>
                 <td>{{ item.montant }}</td>
