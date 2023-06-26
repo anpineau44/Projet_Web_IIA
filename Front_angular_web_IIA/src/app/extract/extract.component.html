@@ -1,10 +1,10 @@
 <app-navbar></app-navbar>
 <div class="filtres">
     <label>Date début:</label>
-    <input type="text" [(ngModel)]="DateDebut">
+    <input type="date" [(ngModel)]="DateDebut">
 
     <label>Date fin:</label>
-    <input type="text" [(ngModel)]="DateFin">
+    <input type="date" [(ngModel)]="DateFin">
 
     <label>Région:</label>
     <select [(ngModel)]="Region">
@@ -13,7 +13,7 @@
     </select>
 
     <label>Vendeur:</label>
-    <input type="text" [(ngModel)]="Vendeur">
+    <input type="number" [(ngModel)]="Vendeur">
 
     <label>
         <input type="checkbox" [(ngModel)]="CheckboxValue"> Somme Montant
