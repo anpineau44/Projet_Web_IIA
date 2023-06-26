@@ -32,5 +32,9 @@ export class NavbarComponent {
         this.router.navigate(['/login']);
       });
   }
+
+  deconnexion(): void {
+    this.tokenService.removeToken();
+  }
   
 }

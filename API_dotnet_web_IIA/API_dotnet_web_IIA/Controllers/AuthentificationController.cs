@@ -196,10 +196,10 @@ namespace API_dotnet_web_IIA.Controllers
             {
                 // Calculer la somme des montants en convertissant les valeurs
                 var sumByDateAndRegion = extractCaList
-                .GroupBy(e => new { e.Date, e.Region })
+                .GroupBy(e => new { e.Region, e.Vendeur })
                 .Select(g => new
                 {
-                    Date = g.Key.Date,
+                    //Date = g.Key.Date,
                     Region = g.Key.Region,
                     Vendeur = g.Select(e => e.Vendeur).FirstOrDefault(),
                     Montant = Math.Round(g.Sum(e => ParseDecimal(e.Montant))).ToString()

@@ -21,6 +21,7 @@ export class ExtractComponent {
 
   ngOnInit(): void {
     this.fetchRegions();
+    this.CheckboxValue=true;
   }
 
   fetchRegions() {
